@@ -1,6 +1,3 @@
-% fileparts(mfilename(
-% /Users/rosanolsmanx/Documents/MATLAB/Project Period 2/PRO4003-master
-
 % Initiate directory for saving data.
 thisDirectory   = '/Users/rosanolsmanx/Documents/MATLAB/Project Period 2/PRO4003-master/';
 saveDirectory   = fullfile(thisDirectory,'Cullen2018_R0_Main');
@@ -8,28 +5,28 @@ if ~isdir(saveDirectory)
     mkdir(saveDirectory)
 end
 
-
 % Regenerate MAT files for the channels.
-activeChannel   = McIntyre2002SlowK;        save('SavedParameters/ActiveChannels/McIntyre2002SlowK.mat','activeChannel');
-activeChannel   = McIntyre2002FastNa;       save('SavedParameters/ActiveChannels/McIntyre2002FastNa.mat','activeChannel');
-activeChannel   = McIntyre2002PersistentNa; save('SavedParameters/ActiveChannels/McIntyre2002PersistentNa.mat','activeChannel');
+activeChannel   = McIntyre2002SlowK;        save('/Users/rosanolsmanx/Documents/MATLAB/Project Period 2/PRO4003-master/SavedParameters/ActiveChannels/McIntyre2002SlowK.mat','activeChannel');
+activeChannel   = McIntyre2002FastNa;       save('/Users/rosanolsmanx/Documents/MATLAB/Project Period 2/PRO4003-master/SavedParameters/ActiveChannels/McIntyre2002FastNa.mat','activeChannel');
+activeChannel   = McIntyre2002PersistentNa; save('/Users/rosanolsmanx/Documents/MATLAB/Project Period 2/PRO4003-master/SavedParameters/ActiveChannels/McIntyre2002PersistentNa.mat','activeChannel');
 clear activeChannel
 
 %%
 % Initiate temperature.
 temp            = [21 37];
 
-% Figure.
-f               = figure;
-
-% Already adding panels for insets.
-ax1 = axes('Position',[0.9 0.25 0.05 0.05]);
-ax2 = axes('Position',[0.9 0.20 0.05 0.05]);
-ax3 = axes('Position',[0.9 0.15 0.05 0.05]);
-ax4 = axes('Position',[0.9 0.10 0.05 0.05]);
-
 % Run the model and calculate CV.
 for k = 1:2
+    
+    % Produce parameters for default cortex model.
+    clear par;
+    par = Cullen2018CortexAxon();
+    
+    % Set temperature.
+    par.sim.temp = temp(k);
+    
+    % change simulation duration
+    par.sim.dt.value = 2;
     
     % Run all simulations varying periaxonal space width.
     j = 1;
