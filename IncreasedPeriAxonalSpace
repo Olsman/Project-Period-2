@@ -17,7 +17,7 @@ for i = 1:50:5001
     
     % Run all simulations varying periaxonal space width.
     
-    psw = 20
+    psw = 8.487 % periaxonal space as observed after iBTS
     par.myel.geo.peri.value.ref = psw;
     par.myel.geo.peri.value.vec = par.myel.geo.peri.value.ref * ones(par.geo.nintn,par.geo.nintseg);
     par.myel.geo.period.value   = 1000*(par.node.geo.diam.value.ref/par.myel.geo.gratio.value.ref-par.node.geo.diam.value.ref-2*par.myel.geo.peri.value.ref/1000)/(2*6.5);
