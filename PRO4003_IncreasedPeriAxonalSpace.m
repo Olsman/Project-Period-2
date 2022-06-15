@@ -1,3 +1,6 @@
+% fileparts(mfilename(
+% /Users/rosanolsmanx/Documents/MATLAB/Project Period 2/PRO4003-master
+
 % Initiate directory for saving data.
 thisDirectory   = '/Users/rosanolsmanx/Documents/MATLAB/Project Period 2/PRO4003-master/';
 saveDirectory   = fullfile(thisDirectory,'Cullen2018_R0_Main');
@@ -83,6 +86,16 @@ n = 51
 % Run the model and calculate CV.
 for k = 1:2
     
+    % Produce parameters for default cortex model.
+    clear par;
+    par = Cullen2018CortexAxon();
+    
+    % Set temperature.
+    par.sim.temp = temp(k);
+    
+    % change simulation duration
+    par.sim.dt.value = 2;
+    
     % Run all simulations varying periaxonal space width.
     j = 1;
     for psw = [0 20]
@@ -144,6 +157,16 @@ n = 51
 % Run the model and calculate CV.
 for k = 1:2
     
+    % Produce parameters for default cortex model.
+    clear par;
+    par = Cullen2018CortexAxon();
+    
+    % Set temperature.
+    par.sim.temp = temp(k);
+    
+    % change simulation duration
+    par.sim.dt.value = 2;
+    
     % Run all simulations varying periaxonal space width.
     j = 1;
     for psw = [0 20]
@@ -197,3 +220,9 @@ for i =  1:10:length(psw20LOCtime.MEMBRANE_POTENTIAL(:,1))
     ylim([-90 90])
     drawnow
 end
+
+
+
+%% change length of the node(?)
+
+
