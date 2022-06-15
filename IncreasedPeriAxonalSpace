@@ -1,0 +1,38 @@
+% Set stimulus location
+n = 51
+    
+% Run the model and calculate CV.
+for i = 1:50:5001
+    
+    % Produce parameters for default cortex model.
+    clear par;
+    par = Cullen2018CortexAxon();
+    
+    % Set temperature.
+    par.sim.temp = 21;
+    
+    % change simulation duration
+    par.sim.dt.value = 1;
+    par.sim.tmax.value = 10;
+    
+    % Run all simulations varying periaxonal space width.
+    
+    psw = 20
+    par.myel.geo.peri.value.ref = psw;
+    par.myel.geo.peri.value.vec = par.myel.geo.peri.value.ref * ones(par.geo.nintn,par.geo.nintseg);
+    par.myel.geo.period.value   = 1000*(par.node.geo.diam.value.ref/par.myel.geo.gratio.value.ref-par.node.geo.diam.value.ref-2*par.myel.geo.peri.value.ref/1000)/(2*6.5);
+    par                         = CalculateNumberOfMyelinLamellae(par, 'max');
+   %par                         = UpdateInternodePeriaxonalSpaceWidth(par, par.myel.geo.peri.value.ref/2, [], [1, 2, 51, 52], 'min');
+        
+    % set locations
+    loc = [1 53*(n-1)+1]
+        
+    % set time
+    tim = [1 i]
+        
+    % model
+    name = strcat('PeriaxonalLength_Sim', num2str(i))
+    [MEMBRANE_POTENTIAL, INTERNODE_LENGTH, TIME_VECTOR] = ModelTime(par, loc, tim, convertStringstoChars(fullfile(saveDirectory, name)));
+    disp(i)
+    
+end
